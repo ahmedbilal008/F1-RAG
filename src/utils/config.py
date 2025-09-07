@@ -21,9 +21,9 @@ class Config:
     PINECONE_INDEX_NAME: str = "f1-rag-chatbot"
     
     # App Configuration
-    APP_TITLE: str = "🏎️ Formula 1 RAG Chatbot"
+    APP_TITLE: str = "F1 RAG Chat"
     DEBUG: bool = False
-    LOG_LEVEL: str = "INFO"
+    LOG_LEVEL: str = "ERROR"
     
     # Embedding Configuration
     EMBEDDING_MODEL: str = "models/embedding-001"
