@@ -1,0 +1,46 @@
+{
+  "f1_sources": {
+    "wikipedia": {
+      "name": "Wikipedia F1 Sources - Recent & Detailed",
+      "urls": [
+        {
+          "url": "https://en.wikipedia.org/wiki/2025_Formula_One_World_Championship",
+          "title": "2025 F1 Season ",
+          "category": "current_season",
+          "priority": 1
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2024_Formula_One_World_Championship",
+          "title": "2024 F1 Season ",
+          "category": "previous_season",
+          "priority": 1
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/F1_(film)",
+          "title": "F1 (film)",
+          "category": "regulations",
+          "priority": 1
+        },
+        {
+          "url": "https://en.wikipedia.org/wiki/2026_Formula_One_World_Championship",
+          "title": "2026 F1 Season ",
+          "category": "future_season",
+          "priority": 1
+        }
+      ]
+    }
+  },
+  "scraping_config": {
+    "headers": {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+    },
+    "timeout": 10,
+    "retry_count": 3,
+    "delay_between_requests": 1
+  },
+  "content_extraction": {
+    "remove_elements": ["script", "style", "nav", "footer", "header", "aside"],
+    "target_elements": ["p", "h1", "h2", "h3", "h4", "li", "table"],
+    "min_text_length": 50
+  }
+}
