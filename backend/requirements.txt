@@ -1,0 +1,23 @@
+# Backend dependencies for F1 RAG Assistant
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.11.7
+pydantic-settings==2.10.1
+python-dotenv==1.1.1
+
+# AI / Embeddings / LLM
+google-generativeai>=0.8.0
+
+# Vector database
+pinecone==5.0.0
+
+# Scraping & data
+requests==2.32.5
+trafilatura>=2.0.0
+beautifulsoup4==4.13.5
+
+# Logging
+loguru==0.7.3
+
+# Utils
+numpy>=2.0.0

@@ -1,107 +1,113 @@
-# F1 RAG Chat
+# F1 RAG Assistant
 
-A Retrieval-Augmented Generation (RAG) chatbot for Formula 1 information using Pinecone vector database and Google Gemini AI.
-
-## Features
-
-- RAG and Direct AI response modes with comparison capability
-- Persistent vector storage using Pinecone
-- Real-time F1 data scraping from Wikipedia sources
-- Professional chat interface with analytics
-- Source citations with relevance scores
-- Comprehensive error handling and logging
+A production-quality Retrieval-Augmented Generation (RAG) chatbot for Formula 1, featuring multi-source ingestion, hybrid retrieval, evaluation metrics, and a modern glassmorphic UI.
 
 ## Architecture
 
 ```
-User Query → RAG Mode Toggle → If RAG:
-    ├── Pinecone Vector Search
-    ├── Context Retrieval  
-    ├── Gemini AI Generation
-    └── Response + Sources
-
-If Direct:
-    └── Direct Gemini AI → Response
+┌─────────────┐        ┌──────────────────────────────────────────┐
+│  Next.js     │  REST  │  FastAPI Backend                         │
+│  Frontend    │◄──────►│                                          │
+│  (port 3000) │        │  /api/v1/chat    ─► RAG Chain            │
+│              │        │  /api/v1/compare ─► RAG vs Direct        │
+│              │        │  /api/v1/ingest  ─► Ingestion Pipeline   │
+│              │        │  /api/v1/status  ─► Health Check         │
+│              │        │  /api/v1/evaluate─► Evaluation Suite     │
+└─────────────┘        └──────┬─────────────────┬─────────────────┘
+                              │                 │
+                    ┌─────────▼──────┐ ┌────────▼────────┐
+                    │  Pinecone      │ │  Gemini 2.5     │
+                    │  Vector DB     │ │  Flash LLM      │
+                    │  (namespaces)  │ │  + Embeddings   │
+                    └────────────────┘ └─────────────────┘
 ```
 
 ## Tech Stack
 
-- **Frontend**: Streamlit with custom CSS
-- **Vector DB**: Pinecone
-- **LLM**: Google Gemini 1.5 Flash
-- **Embeddings**: Google Embedding-001
-- **Web Scraping**: BeautifulSoup + Requests
+| Layer | Technology |
+|-------|-----------|
+| Frontend | Next.js 16, Tailwind CSS 4, shadcn/ui, Lucide icons |
+| Backend | FastAPI, Pydantic, Loguru |
+| Vector DB | Pinecone (serverless, cosine similarity) |
+| LLM | Google Gemini 2.5 Flash |
+| Embeddings | Google embedding-001 (768d) |
+| Scraping | Trafilatura + BeautifulSoup fallback |
+| Data APIs | Jolpica (Ergast replacement), OpenF1 |
 
-## Prerequisites
+## Features
 
-- Python 3.8+
-- Google AI API Key
-- Pinecone API Key
+- **Multi-source ingestion**: Wikipedia articles, Ergast F1 API data (results, standings, drivers, constructors)
+- **Semantic chunking**: F1-aware metadata tagging (driver, team, season detection)
+- **Namespace strategy**: Each data source in its own Pinecone namespace for selective retrieval
+- **RAG vs Direct comparison**: Side-by-side mode with latency and quality metrics
+- **Live data augmentation**: OpenF1 API for current session data
+- **Evaluation suite**: 10-question test set with keyword scoring
+- **Provider abstraction**: LLM and embedding providers are swappable
 
-## Quick Setup
+## Quick Start
 
-### 1. Clone and Install
+### Prerequisites
+
+- Python 3.11+
+- Node.js 18+
+- Google AI API key ([Google AI Studio](https://aistudio.google.com/app/apikey))
+- Pinecone API key ([Pinecone](https://www.pinecone.io/))
+
+### 1. Configure Environment
 
 ```bash
-git clone https://github.com/yourusername/f1-rag-chatbot.git
-cd f1-rag-chatbot
+cd backend
+cp .env.example .env
+# Edit .env with your API keys
+```
+
+### 2. Backend
+
+```bash
+cd backend
 pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
 ```
 
-### 2. Configure API Keys
+### 3. Frontend
 
 ```bash
-# Create .env file
-GOOGLE_API_KEY=your_google_api_key_here
-PINECONE_API_KEY=your_pinecone_api_key_here
-PINECONE_ENVIRONMENT=your_pinecone_environment
+cd frontend
+npm install
+npm run dev
 ```
 
-### 3. Initialize Vector Database
+### 4. Ingest Data
+
+Use the sidebar "Ingestion" buttons in the UI, or call the API directly:
 
 ```bash
-python main.py
+curl -X POST http://localhost:8000/api/v1/ingest -H "Content-Type: application/json" -d '{"source": "all"}'
 ```
-
-The application will automatically scrape F1 data and populate the vector database on first run.
-
-### 4. Run Application
-
-```bash
-streamlit run main.py
-```
-
-## Configuration
-
-All settings are managed in `src/utils/config.py`:
-
-- Vector dimensions and similarity thresholds
-- Scraping targets and refresh intervals  
-- Model parameters and temperature settings
-- Logging levels and output formats
 
 ## Project Structure
 
 ```
 f1-rag-chatbot/
-├── main.py                 # Main application entry point
-├── src/
-│   ├── components/         # UI components
-│   ├── core/              # Core RAG functionality
-│   ├── data/              # Data storage and metadata
-│   └── utils/             # Configuration and utilities
-├── static/                # CSS and assets
-└── requirements.txt       # Dependencies
+├── backend/
+│   ├── main.py                  # FastAPI app factory
+│   ├── requirements.txt
+│   ├── Dockerfile               # Backend container build
+│   ├── .dockerignore
+│   ├── .env.example             # Environment template
+│   └── app/
+│       ├── api/routes.py        # REST endpoints
+│       ├── core/config.py       # Pydantic settings
+│       ├── core/logging.py      # Structured logging
+│       ├── evaluation/          # RAG evaluation suite
+│       ├── ingestion/           # Wikipedia scraper, Jolpica client, chunker, pipeline
+│       ├── models/schemas.py    # Request/response schemas
+│       ├── retrieval/           # RAG chain, OpenF1 live data
+│       └── services/            # Embeddings, LLM, vector store providers
+├── frontend/
+│   ├── src/app/                 # Next.js pages
+│   ├── src/components/          # Chat UI, sidebar, metrics
+│   └── src/lib/                 # API client, types
+└── README.md
 ```
-
-## Usage
-
-1. **RAG Mode**: Uses vector search to find relevant F1 information and generate contextual responses
-2. **Direct Mode**: Bypasses vector search for immediate AI responses
-3. **Comparison**: Toggle between modes to compare response quality and sources
-
-## API Keys
-
-- **Google AI**: Generate at [Google AI Studio](https://aistudio.google.com/app/apikey)
-- **Pinecone**: Create account at [Pinecone](https://www.pinecone.io/)
 
