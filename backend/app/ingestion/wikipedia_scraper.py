@@ -19,28 +19,15 @@ WIKIPEDIA_SOURCES: List[Dict[str, Any]] = [
     # Current & upcoming seasons
     {"url": "https://en.wikipedia.org/wiki/2025_Formula_One_World_Championship", "title": "2025 F1 Season", "category": "season", "priority": 1},
     {"url": "https://en.wikipedia.org/wiki/2026_Formula_One_World_Championship", "title": "2026 F1 Season", "category": "season", "priority": 1},
-    # Key drivers
-    {"url": "https://en.wikipedia.org/wiki/Max_Verstappen", "title": "Max Verstappen", "category": "driver", "priority": 1},
-    {"url": "https://en.wikipedia.org/wiki/Lewis_Hamilton", "title": "Lewis Hamilton", "category": "driver", "priority": 1},
-    {"url": "https://en.wikipedia.org/wiki/Charles_Leclerc", "title": "Charles Leclerc", "category": "driver", "priority": 1},
-    {"url": "https://en.wikipedia.org/wiki/Lando_Norris", "title": "Lando Norris", "category": "driver", "priority": 1},
-    {"url": "https://en.wikipedia.org/wiki/Carlos_Sainz_Jr.", "title": "Carlos Sainz", "category": "driver", "priority": 2},
-    {"url": "https://en.wikipedia.org/wiki/Oscar_Piastri", "title": "Oscar Piastri", "category": "driver", "priority": 2},
     # Teams — includes new 2026 entrants
     {"url": "https://en.wikipedia.org/wiki/Red_Bull_Racing", "title": "Red Bull Racing", "category": "team", "priority": 1},
     {"url": "https://en.wikipedia.org/wiki/Scuderia_Ferrari", "title": "Ferrari", "category": "team", "priority": 1},
     {"url": "https://en.wikipedia.org/wiki/McLaren", "title": "McLaren", "category": "team", "priority": 1},
     {"url": "https://en.wikipedia.org/wiki/Mercedes-Benz_in_Formula_One", "title": "Mercedes F1", "category": "team", "priority": 1},
-    {"url": "https://en.wikipedia.org/wiki/Aston_Martin_in_Formula_One", "title": "Aston Martin F1", "category": "team", "priority": 2},
-    {"url": "https://en.wikipedia.org/wiki/Williams_Racing", "title": "Williams Racing", "category": "team", "priority": 2},
     {"url": "https://en.wikipedia.org/wiki/Cadillac_in_Formula_One", "title": "Cadillac F1 (2026 Entry)", "category": "team", "priority": 1},
     {"url": "https://en.wikipedia.org/wiki/Audi_in_Formula_One", "title": "Audi F1 (Sauber Takeover)", "category": "team", "priority": 1},
     # 2026 regulations — major rule overhaul (active aero, new PU, no DRS)
     {"url": "https://en.wikipedia.org/wiki/2026_Formula_One_regulations", "title": "2026 F1 Regulations", "category": "regulations", "priority": 1},
-    {"url": "https://en.wikipedia.org/wiki/Formula_One_regulations", "title": "F1 Regulations", "category": "regulations", "priority": 2},
-    {"url": "https://en.wikipedia.org/wiki/Formula_One_car", "title": "F1 Car Technical", "category": "technical", "priority": 2},
-    # General
-    {"url": "https://en.wikipedia.org/wiki/Formula_One", "title": "Formula One Overview", "category": "general", "priority": 2},
 ]
 
 

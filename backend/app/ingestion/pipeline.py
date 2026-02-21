@@ -20,6 +20,7 @@ ERGAST_NAMESPACE_MAP = {
     "standings": "ergast-results",
     "drivers": "ergast-drivers",
     "constructors": "ergast-constructors",
+    "circuits": "ergast-circuits",
 }
 
 

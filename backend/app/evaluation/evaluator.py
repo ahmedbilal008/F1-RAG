@@ -12,54 +12,24 @@ logger = get_logger("evaluation")
 
 EVALUATION_DATASET: List[Dict[str, Any]] = [
     {
-        "question": "Who won the 2024 Formula 1 World Drivers' Championship?",
-        "expected_keywords": ["verstappen"],
-        "category": "standings",
+        "question": "What major regulation changes are coming in 2026?",
+        "expected_keywords": ["power unit", "active aerodynamics", "2026"],
+        "category": "regulations",
     },
     {
-        "question": "Which team won the 2024 Constructors' Championship?",
-        "expected_keywords": ["mclaren"],
-        "category": "standings",
-    },
-    {
-        "question": "What is DRS in Formula 1?",
-        "expected_keywords": ["drag reduction system", "rear wing", "overtaking"],
+        "question": "Is DRS being removed from Formula 1?",
+        "expected_keywords": ["drs", "2026", "active aero"],
         "category": "technical",
     },
     {
-        "question": "How many World Championships has Lewis Hamilton won?",
-        "expected_keywords": ["seven", "7"],
-        "category": "history",
+        "question": "Which new teams are joining the F1 grid?",
+        "expected_keywords": ["cadillac", "audi"],
+        "category": "teams",
     },
     {
-        "question": "Which team does Charles Leclerc drive for?",
-        "expected_keywords": ["ferrari"],
-        "category": "drivers",
-    },
-    {
-        "question": "What happened in the 2023 F1 season?",
-        "expected_keywords": ["verstappen", "red bull"],
-        "category": "season",
-    },
-    {
-        "question": "How does the F1 points system work?",
-        "expected_keywords": ["25", "points", "first", "winner"],
-        "category": "regulations",
-    },
-    {
-        "question": "Who is the most successful F1 driver of all time?",
-        "expected_keywords": ["hamilton", "schumacher"],
-        "category": "history",
-    },
-    {
-        "question": "What changes are expected in the 2026 F1 regulations?",
-        "expected_keywords": ["engine", "power unit", "2026"],
-        "category": "regulations",
-    },
-    {
-        "question": "Which circuits are on the 2025 F1 calendar?",
-        "expected_keywords": ["grand prix", "circuit"],
-        "category": "season",
+        "question": "What is Audi's involvement in F1 from 2026?",
+        "expected_keywords": ["audi", "sauber", "2026"],
+        "category": "teams",
     },
 ]
 

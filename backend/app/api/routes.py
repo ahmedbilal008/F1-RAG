@@ -113,31 +113,7 @@ async def compare(request: ChatRequest) -> CompareResponse:
 @router.post("/ingest", response_model=IngestionResult)
 async def ingest(request: IngestionRequest, background_tasks: BackgroundTasks):
     """Trigger data ingestion."""
-    try:
-        logger.info(f"Ingestion triggered: source={request.source}, force={request.force_refresh}")
-
-        if request.source.value == "wikipedia":
-            result = ingest_wikipedia(force_refresh=request.force_refresh)
-        elif request.source.value == "ergast":
-            result = ingest_ergast(force_refresh=request.force_refresh)
-        else:
-            result = ingest_all(force_refresh=request.force_refresh)
-
-        return IngestionResult(
-            success=result.get("success", False),
-            source=request.source.value,
-            documents_processed=result.get("documents_scraped", 0) + result.get("documents_fetched", 0),
-            chunks_created=result.get("chunks_created", 0) + result.get("total_chunks", 0),
-            errors=result.get("errors", []),
-            duration_seconds=result.get("duration_seconds", 0),
-        )
-    except Exception as e:
-        logger.error(f"Ingestion error: {e}")
-        return IngestionResult(
-            success=False,
-            source=request.source.value,
-            errors=[str(e)],
-        )
+    raise HTTPException(status_code=403, detail="Ingestion is disabled.")
 
 
 @router.get("/status", response_model=SystemStatus)

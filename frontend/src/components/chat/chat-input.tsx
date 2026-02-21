@@ -51,21 +51,14 @@ export function ChatInput({ onSend, isLoading, disabled }: Props) {
             placeholder="Ask about F1 history, drivers, regulations..."
             disabled={isLoading || disabled}
             rows={1}
-            className="w-full resize-none rounded-xl bg-white/[0.05] border border-white/[0.08] 
-              px-4 py-3 text-sm text-white/90 placeholder:text-white/25
-              focus:outline-none focus:border-white/20 focus:bg-white/[0.07]
-              disabled:opacity-40 disabled:cursor-not-allowed
-              transition-all duration-200"
+            className="w-full resize-none rounded-xl bg-white/[0.05] border border-white/[0.08] px-4 py-3 text-sm text-white/90 placeholder:text-white/25 focus:outline-none focus:border-white/20 focus:bg-white/[0.07] disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-200"
           />
         </div>
 
         <button
           onClick={handleSubmit}
           disabled={!input.trim() || isLoading || disabled}
-          className="shrink-0 h-[46px] w-[46px] rounded-xl flex items-center justify-center
-            bg-red-600/80 hover:bg-red-600 text-white
-            disabled:bg-white/[0.06] disabled:text-white/20
-            transition-all duration-200"
+          className="shrink-0 h-[46px] w-[46px] rounded-xl flex items-center justify-center bg-red-600/80 hover:bg-red-600 text-white disabled:bg-white/[0.06] disabled:text-white/20 transition-all duration-200"
         >
           {isLoading ? (
             <Loader2 size={18} className="animate-spin" />

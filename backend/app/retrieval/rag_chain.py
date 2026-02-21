@@ -39,16 +39,16 @@ INSTRUCTIONS:
 ANSWER:"""
 
 
-DIRECT_PROMPT_TEMPLATE = """You are a Formula 1 expert assistant. Answer the user's question using your general knowledge about Formula 1.
+DIRECT_PROMPT_TEMPLATE = """You are a Formula 1 expert assistant. Answer the following question concisely and accurately.
 
 USER QUESTION: {question}
 
 INSTRUCTIONS:
-- Provide a comprehensive, accurate answer about Formula 1
-- Include relevant statistics, history, and technical details
-- Use proper F1 terminology
-- If you're uncertain about specific details, indicate your confidence level
-- Keep responses well-structured and engaging
+- Keep the answer to 2-3 short paragraphs maximum — do not pad with background history unless it is directly relevant
+- Use markdown formatting: bold key names and terms, bullet points only when listing 3 or more items
+- Use precise F1 terminology where relevant
+- If uncertain about a specific detail, state it briefly
+- Do not include lengthy historical context, approval processes, or hypothetical scenarios unless the question explicitly asks for them
 
 ANSWER:"""
 
@@ -205,12 +205,8 @@ class RAGChain:
         # Vector store
         vs_status = self._store.check_connection()
 
-        # LLM
-        try:
-            test = self._llm.generate("Respond with OK")
-            llm_ok = bool(test.text)
-        except Exception as e:
-            llm_ok = False
+        # LLM — just check the provider is initialized (no API call)
+        llm_ok = self._llm is not None and self._llm.get_model_name() != ""
 
         stats = self._store.get_stats()
 

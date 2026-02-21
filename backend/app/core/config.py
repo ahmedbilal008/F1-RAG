@@ -17,7 +17,7 @@ class Settings(BaseSettings):
     PINECONE_REGION: str = "us-east-1"
 
     # --- Embedding ---
-    EMBEDDING_MODEL: str = "models/embedding-001"
+    EMBEDDING_MODEL: str = "gemini-embedding-001"
     EMBEDDING_DIMENSION: int = 768
 
     # --- Chunking ---

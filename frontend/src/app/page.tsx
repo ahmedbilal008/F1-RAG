@@ -104,7 +104,7 @@ export default function Home() {
       />
 
       <main className="flex-1 flex flex-col min-w-0">
-        <MessageList messages={messages} isLoading={isLoading} />
+        <MessageList messages={messages} isLoading={isLoading} onSend={handleSend} />
         <ChatInput onSend={handleSend} isLoading={isLoading} />
       </main>
     </div>

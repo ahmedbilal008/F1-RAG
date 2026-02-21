@@ -194,9 +194,7 @@ export function Sidebar({
             max={15}
             value={topK}
             onChange={(e) => onTopKChange(parseInt(e.target.value))}
-            className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer
-              [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3
-              [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-red-500"
+            className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-red-500"
           />
         </div>
 
@@ -209,9 +207,7 @@ export function Sidebar({
               onChange={(e) =>
                 onNamespaceFilterChange(e.target.value || null)
               }
-              className="w-full text-xs bg-white/[0.05] border border-white/[0.08] rounded-lg
-                px-3 py-2 text-white/70 appearance-none cursor-pointer
-                focus:outline-none focus:border-white/20"
+              className="w-full text-xs bg-white/[0.05] border border-white/[0.08] rounded-lg px-3 py-2 text-white/70 appearance-none cursor-pointer focus:outline-none focus:border-white/20"
             >
               <option value="">All namespaces</option>
               {namespaces.map(([ns]) => (
@@ -260,17 +256,10 @@ export function Sidebar({
           {["all", "wikipedia", "ergast"].map((src) => (
             <button
               key={src}
-              onClick={() => handleIngest(src)}
-              disabled={ingesting}
-              className="text-[11px] px-3 py-2 rounded-lg bg-white/[0.04] border border-white/[0.06]
-                text-white/40 hover:text-white/70 hover:bg-white/[0.08] transition-all
-                disabled:opacity-30 disabled:cursor-not-allowed capitalize"
+              disabled
+              className="text-[11px] px-3 py-2 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/20 opacity-30 cursor-not-allowed capitalize"
             >
-              {ingesting ? (
-                <Loader2 size={12} className="animate-spin mx-auto" />
-              ) : (
-                src
-              )}
+              {src}
             </button>
           ))}
         </div>
@@ -291,10 +280,7 @@ export function Sidebar({
         <button
           onClick={handleEvaluate}
           disabled={evaluating}
-          className="w-full text-xs px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.06]
-            text-white/40 hover:text-white/70 hover:bg-white/[0.08] transition-all
-            disabled:opacity-30 disabled:cursor-not-allowed
-            flex items-center justify-center gap-2"
+          className="w-full text-xs px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/40 hover:text-white/70 hover:bg-white/[0.08] transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           {evaluating ? (
             <>

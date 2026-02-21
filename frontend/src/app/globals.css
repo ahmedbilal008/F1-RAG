@@ -210,3 +210,19 @@
   border-radius: 2px;
   height: 3px;
 }
+
+/* Kill textarea resize handles and select arrows globally */
+textarea {
+  resize: none !important;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* Style scrollbars globally for dark theme */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+}

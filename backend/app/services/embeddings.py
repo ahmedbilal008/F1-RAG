@@ -50,29 +50,51 @@ class GoogleEmbeddingProvider(EmbeddingProvider):
         logger.info(f"GoogleEmbeddingProvider initialized (model={self._model_name}, dim={self._dimension})")
 
     def embed_documents(self, texts: List[str], batch_size: int = 20) -> List[List[float]]:
-        """Generate embeddings for documents in batches."""
+        """
+        Generate embeddings for documents in batches.
+
+        Rate-limit aware: stays under the free-tier limits.
+        - 100 RPM (requests per minute)
+        - 30K TPM (tokens per minute — ~4K tokens per 20-chunk batch)
+        Paces at ~9s/batch to stay under ~7 batches/min (~28K TPM).
+        """
         import google.generativeai as genai
 
         all_embeddings: List[List[float]] = []
+        total_batches = (len(texts) + batch_size - 1) // batch_size
 
         for i in range(0, len(texts), batch_size):
             batch = texts[i : i + batch_size]
-            logger.debug(f"Embedding batch {i // batch_size + 1} ({len(batch)} texts)")
+            batch_num = i // batch_size + 1
+            logger.info(f"Embedding batch {batch_num}/{total_batches} ({len(batch)} texts)")
 
             try:
                 results = genai.embed_content(
                     model=self._model_name,
                     content=batch,
                     task_type="retrieval_document",
+                    output_dimensionality=self._dimension,
                 )
                 all_embeddings.extend(results["embedding"])
             except Exception as e:
-                logger.error(f"Embedding batch failed: {e}")
-                raise
+                if "429" in str(e) or "quota" in str(e).lower():
+                    # Rate limited — back off and retry
+                    logger.warning(f"Rate limited at batch {batch_num}, backing off 60s...")
+                    time.sleep(60)
+                    results = genai.embed_content(
+                        model=self._model_name,
+                        content=batch,
+                        task_type="retrieval_document",
+                        output_dimensionality=self._dimension,
+                    )
+                    all_embeddings.extend(results["embedding"])
+                else:
+                    logger.error(f"Embedding batch failed: {e}")
+                    raise
 
-            # Small delay between batches to respect rate limits
+            # Pace at ~9s/batch = ~7 batches/min = ~28K TPM (under 30K limit)
             if i + batch_size < len(texts):
-                time.sleep(0.25)
+                time.sleep(9)
 
         logger.info(f"Generated {len(all_embeddings)} document embeddings")
         return all_embeddings
@@ -86,6 +108,7 @@ class GoogleEmbeddingProvider(EmbeddingProvider):
                 model=self._model_name,
                 content=text,
                 task_type="retrieval_query",
+                output_dimensionality=self._dimension,
             )
             return result["embedding"]
         except Exception as e:

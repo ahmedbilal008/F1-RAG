@@ -140,10 +140,6 @@ class VectorStore:
             logger.error(f"Delete namespace failed: {e}")
             return False
 
-    # ------------------------------------------------------------------
-    # Read operations
-    # ------------------------------------------------------------------
-
     def similarity_search(
         self,
         query: str,
