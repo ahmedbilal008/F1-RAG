@@ -99,9 +99,9 @@ export function Sidebar({
     : [];
 
   return (
-    <aside className="w-72 shrink-0 border-r border-white/[0.06] bg-black/60 backdrop-blur-xl overflow-y-auto custom-scrollbar flex flex-col">
+    <aside className="w-72 shrink-0 border-r border-white/6 bg-black/60 backdrop-blur-xl overflow-y-auto custom-scrollbar flex flex-col">
       {/* Header */}
-      <div className="p-5 border-b border-white/[0.06]">
+      <div className="p-5 border-b border-white/6">
         <h1 className="text-lg font-semibold text-white/90 tracking-tight">
           F1 RAG
         </h1>
@@ -111,7 +111,7 @@ export function Sidebar({
       </div>
 
       {/* Connection status */}
-      <div className="px-5 py-3 border-b border-white/[0.06]">
+      <div className="px-5 py-3 border-b border-white/6">
         <div className="flex items-center justify-between">
           <span className="text-xs text-white/40 uppercase tracking-wider">
             System
@@ -149,11 +149,11 @@ export function Sidebar({
       </div>
 
       {/* Mode selector */}
-      <div className="px-5 py-4 border-b border-white/[0.06] space-y-3">
+      <div className="px-5 py-4 border-b border-white/6 space-y-3">
         <span className="text-xs text-white/40 uppercase tracking-wider">
           Response Mode
         </span>
-        <div className="flex rounded-lg overflow-hidden border border-white/[0.08]">
+        <div className="flex rounded-lg overflow-hidden border border-white/8">
           {(["rag", "direct", "compare"] as ResponseMode[]).map((m) => (
             <button
               key={m}
@@ -161,7 +161,7 @@ export function Sidebar({
               className={`flex-1 py-2 text-xs font-medium transition-all ${
                 mode === m
                   ? "bg-red-600/80 text-white"
-                  : "bg-white/[0.03] text-white/40 hover:text-white/60 hover:bg-white/[0.06]"
+                  : "bg-white/3 text-white/40 hover:text-white/60 hover:bg-white/6"
               }`}
             >
               {m.toUpperCase()}
@@ -178,7 +178,7 @@ export function Sidebar({
       </div>
 
       {/* Retrieval settings */}
-      <div className="px-5 py-4 border-b border-white/[0.06] space-y-3">
+      <div className="px-5 py-4 border-b border-white/6 space-y-3">
         <span className="text-xs text-white/40 uppercase tracking-wider">
           Retrieval Settings
         </span>
@@ -207,7 +207,7 @@ export function Sidebar({
               onChange={(e) =>
                 onNamespaceFilterChange(e.target.value || null)
               }
-              className="w-full text-xs bg-white/[0.05] border border-white/[0.08] rounded-lg px-3 py-2 text-white/70 appearance-none cursor-pointer focus:outline-none focus:border-white/20"
+              className="w-full text-xs bg-white/5 border border-white/8 rounded-lg px-3 py-2 text-white/70 appearance-none cursor-pointer focus:outline-none focus:border-white/20"
             >
               <option value="">All namespaces</option>
               {namespaces.map(([ns]) => (
@@ -226,7 +226,7 @@ export function Sidebar({
 
       {/* Namespaces info */}
       {namespaces.length > 0 && (
-        <div className="px-5 py-4 border-b border-white/[0.06] space-y-2">
+        <div className="px-5 py-4 border-b border-white/6 space-y-2">
           <span className="text-xs text-white/40 uppercase tracking-wider flex items-center gap-1.5">
             <Layers size={12} /> Namespaces
           </span>
@@ -247,7 +247,7 @@ export function Sidebar({
       )}
 
       {/* Ingestion */}
-      <div className="px-5 py-4 border-b border-white/[0.06] space-y-3">
+      <div className="px-5 py-4 border-b border-white/6 space-y-3">
         <span className="text-xs text-white/40 uppercase tracking-wider flex items-center gap-1.5">
           <Activity size={12} /> Ingestion
         </span>
@@ -257,7 +257,8 @@ export function Sidebar({
             <button
               key={src}
               disabled
-              className="text-[11px] px-3 py-2 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/20 opacity-30 cursor-not-allowed capitalize"
+              title="Ingestion is disabled"
+              className="text-[11px] px-3 py-2 rounded-lg bg-white/4 border border-white/6 text-white/40 cursor-not-allowed capitalize select-none"
             >
               {src}
             </button>
@@ -280,7 +281,7 @@ export function Sidebar({
         <button
           onClick={handleEvaluate}
           disabled={evaluating}
-          className="w-full text-xs px-3 py-2.5 rounded-lg bg-white/[0.04] border border-white/[0.06] text-white/40 hover:text-white/70 hover:bg-white/[0.08] transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="w-full text-xs px-3 py-2.5 rounded-lg bg-white/4 border border-white/6 text-white/40 hover:text-white/70 hover:bg-white/8 transition-all disabled:opacity-30 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           {evaluating ? (
             <>

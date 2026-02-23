@@ -37,7 +37,7 @@ class Settings(BaseSettings):
     APP_NAME: str = "F1 RAG Assistant"
     DEBUG: bool = False
     LOG_LEVEL: str = "INFO"
-    CORS_ORIGINS: str = "http://localhost:3000"
+    CORS_ORIGINS: str = "http://localhost:3000,https://localhost:3000"
 
     # --- Ingestion ---
     SCRAPE_DELAY: float = 1.0

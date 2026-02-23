@@ -1,8 +1,3 @@
-/* -------------------------------------------------------------------
-   API client — single module for all backend communication.
-   Uses native fetch; no axios dependency needed.
-   ------------------------------------------------------------------- */
-
 import type {
   ChatRequest,
   ChatResponse,

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from fastapi import APIRouter, BackgroundTasks, HTTPException
+from fastapi import APIRouter, HTTPException
 from app.models.schemas import (
     ChatRequest,
     ChatResponse,
@@ -11,12 +11,10 @@ from app.models.schemas import (
     IngestionResult,
     SystemStatus,
     ResponseMode,
-    MetricsData,
 )
 from app.retrieval.rag_chain import get_rag_chain
 from app.retrieval.live_data import is_live_query, get_openf1_client
 from app.services.llm import get_llm_provider
-from app.ingestion.pipeline import ingest_all, ingest_wikipedia, ingest_ergast
 from app.evaluation.evaluator import run_evaluation
 from app.core.logging import get_logger
 
@@ -27,14 +25,7 @@ router = APIRouter(prefix="/api/v1", tags=["F1 RAG"])
 
 @router.post("/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest) -> ChatResponse:
-    """
-    Main chat endpoint.
-
-    Supports three modes:
-      - RAG: retrieval-augmented generation
-      - DIRECT: straight LLM inference
-      - COMPARE: returns both (via /compare endpoint)
-    """
+    """Main chat endpoint — RAG, direct, or compare mode."""
     try:
         chain = get_rag_chain()
 
@@ -111,8 +102,8 @@ async def compare(request: ChatRequest) -> CompareResponse:
 
 
 @router.post("/ingest", response_model=IngestionResult)
-async def ingest(request: IngestionRequest, background_tasks: BackgroundTasks):
-    """Trigger data ingestion."""
+async def ingest(request: IngestionRequest):
+    """Ingestion endpoint — disabled in production."""
     raise HTTPException(status_code=403, detail="Ingestion is disabled.")
 
 

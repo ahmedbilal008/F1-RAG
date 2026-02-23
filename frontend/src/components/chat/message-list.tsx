@@ -49,7 +49,7 @@ export function MessageList({ messages, isLoading, onSend }: Props) {
             className={cn(
               "rounded-xl px-4 py-3 text-sm leading-relaxed",
               msg.role === "user"
-                ? "bg-white/[0.08] text-white/90"
+                ? "bg-white/8 text-white/90"
                 : "glass text-white/90"
             )}
           >
@@ -128,7 +128,7 @@ function EmptyState({ onSend }: { onSend: (q: string) => void }) {
           <button
             key={q}
             onClick={() => onSend(q)}
-            className="text-xs glass rounded-full px-3 py-1.5 text-white/50 hover:text-white/80 hover:bg-white/[0.1] transition-colors cursor-pointer"
+            className="text-xs glass rounded-full px-3 py-1.5 text-white/50 hover:text-white/80 hover:bg-white/10 transition-colors cursor-pointer"
           >
             {q}
           </button>

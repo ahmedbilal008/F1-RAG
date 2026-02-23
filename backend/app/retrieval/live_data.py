@@ -161,10 +161,6 @@ class OpenF1Client:
         return "No live F1 session data is currently available."
 
 
-# ---------------------------------------------------------------------------
-# Singleton
-# ---------------------------------------------------------------------------
-
 _client: Optional[OpenF1Client] = None
 
 

@@ -114,7 +114,6 @@ class RAGChain:
         k = top_k or self._settings.TOP_K_RESULTS
         total_start = time.perf_counter()
 
-        # --- Retrieval ---
         retrieval_start = time.perf_counter()
         documents = self._store.similarity_search(
             query=question,
@@ -139,7 +138,6 @@ class RAGChain:
                 ),
             )
 
-        # --- Generation ---
         context = self._format_context(documents)
         prompt = RAG_PROMPT_TEMPLATE.format(context=context, question=question)
 
@@ -149,7 +147,6 @@ class RAGChain:
 
         total_ms = (time.perf_counter() - total_start) * 1000
 
-        # --- Build response ---
         sources = self._build_source_documents(documents)
         avg_score = sum(d["score"] for d in documents) / len(documents) if documents else 0
 
