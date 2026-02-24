@@ -37,3 +37,5 @@ frontend/.env.production
 .pytest_cache/
 htmlcov/
 .coverage
+
+NOTES.md
